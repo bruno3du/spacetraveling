@@ -1,4 +1,22 @@
-.post {
+.container {
+  margin-bottom: 80px;
+  section {
+    margin-bottom: 64px;
+  }
+
+  > button {
+    color: var(--highlight);
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+.posts {
+  & + .posts {
+    margin-top: 48px;
+  }
+
   > h2 {
     color: var(--heading);
     font-size: 28px;
@@ -18,19 +36,11 @@
     display: flex;
     gap: 24px;
 
-    &__time {
+    > div {
       display: flex;
       gap: 8px;
-
-      time {
-        color: var(--info);
-      }
-    }
-    &__author {
-      display: flex;
-      gap: 8px;
-
       color: var(--info);
+      align-items: center;
     }
   }
 }
