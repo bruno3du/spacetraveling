@@ -1,11 +1,12 @@
 import { GetStaticProps } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
+
 import { FiCalendar, FiUser } from 'react-icons/fi';
 
 import { format } from 'date-fns';
 import ptBR from 'date-fns/locale/pt-BR';
 
+import { useEffect, useState } from 'react';
 import Header from '../components/Header';
 
 import { getPrismicClient } from '../services/prismic';
@@ -25,7 +26,7 @@ interface Post {
 
 interface PostPagination {
   next_page: string;
-  results: Post[];
+  posts: Post[];
 }
 
 interface HomeProps {
@@ -33,6 +34,14 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps): JSX.Element {
+  const [posts, setPosts] = useState([] as Post[]);
+  const [nextPage, setNextPage] = useState<string>(null);
+
+  useEffect(() => {
+    if (postsPagination?.posts) setPosts(postsPagination.posts);
+    if (postsPagination?.next_page) setNextPage(postsPagination.next_page);
+  }, []);
+
   function handleDate(date): string {
     const newDate = format(date, 'PP', {
       locale: ptBR,
@@ -41,28 +50,51 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
     return newDate;
   }
 
+  async function handleMoreArticles(api: string): Promise<void> {
+    const response = await fetch(api);
+    const data = await response.json();
+
+    const { results, ...rest } = data;
+    const { next_page } = rest;
+
+    console.log(results);
+
+    await results.forEach((ele: Post) => {
+      const newPost = {
+        uid: ele.uid,
+        first_publication_date: ele.first_publication_date,
+        data: {
+          title: ele.data.title,
+          subtitle: ele.data.subtitle,
+          author: ele.data.author,
+        },
+      };
+
+      setPosts([...posts, newPost]);
+    });
+
+    setNextPage(next_page);
+  }
+  console.log(posts);
   return (
     <div className={commonStyles.container}>
       <Header />
       <main className={styles.container}>
         <section>
-          {Array.from({ length: 3 }).map((_, index) => (
+          {posts.map((post, index) => (
             <div key={`${index + 2} postX`} className={styles.posts}>
               <Link
                 href={{
                   pathname: '/post/[slug]',
-                  query: { slug: 'my-post' },
+                  query: { slug: post.uid },
                 }}
                 passHref
               >
                 <a>
-                  <h2>Como utilizar Hooks</h2>
+                  <h2>{post?.data?.title}</h2>
                 </a>
               </Link>
-              <p>
-                Tudo sobre como criar a sua primeira aplicação utilizando Create
-                React App
-              </p>
+              <p>{post?.data?.subtitle}</p>
               <div className={styles.posts_footer}>
                 <div className={styles.posts_footer__time}>
                   <FiCalendar />
@@ -70,13 +102,17 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
                 </div>
                 <div className={styles.posts_footer__author}>
                   <FiUser />
-                  <p>Joseph Oliveira</p>
+                  <p>{post?.data?.author}</p>
                 </div>
               </div>
             </div>
           ))}
         </section>
-        <button type="button">Carregar mais posts</button>
+        {nextPage && (
+          <button type="button" onClick={() => handleMoreArticles(nextPage)}>
+            Carregar mais posts
+          </button>
+        )}
       </main>
     </div>
   );
@@ -84,12 +120,31 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
 
 export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
-  const postsResponse = await prismic.query('');
-  console.log(postsResponse, 'teste');
+
+  const postsResponse = await prismic.getByType('post', {
+    pageSize: 1,
+  });
+
+  const { results, ...postRest } = postsResponse;
+
+  const posts: Post[] = results.map(post => {
+    return {
+      uid: post.uid,
+      first_publication_date: post.first_publication_date,
+      data: {
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author,
+      },
+    };
+  });
 
   return {
     props: {
-      user: ['jorge'],
+      postsPagination: {
+        posts,
+        next_page: postRest.next_page,
+      },
     },
   };
 };

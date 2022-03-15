@@ -3,6 +3,15 @@
     "MySlice": {}
   },
   "_cts": {
-    "post": {}
+    "post": {
+      "content": {
+        "body": {
+          "config": {
+            "patternType": "HEADING",
+            "blocks": 1
+          }
+        }
+      }
+    }
   }
 }

@@ -40,6 +40,31 @@
           "thumbnails": []
         },
         "type": "Image"
+      },
+      "content": {
+        "config": {
+          "label": "Content",
+          "placeholder": "",
+          "fields": {
+            "heading": {
+              "config": {
+                "label": "Heading",
+                "placeholder": ""
+              },
+              "type": "Text"
+            },
+            "body": {
+              "config": {
+                "label": "Body",
+                "placeholder": "",
+                "allowTargetBlank": true,
+                "multi": "preformatted,heading1,heading2,heading3,heading4,heading5,heading6"
+              },
+              "type": "StructuredText"
+            }
+          }
+        },
+        "type": "Group"
       }
     }
   }

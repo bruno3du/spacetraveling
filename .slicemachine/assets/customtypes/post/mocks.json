@@ -1,11 +1,11 @@
 {
-  "id": "2b5870a4-ea3b-4d6f-b838-727f4ad0540e",
-  "uid": "iusto-harum-nesciunt",
+  "id": "e260ec8a-25e0-4038-b0cb-54d53b7e03fc",
+  "uid": "et-ut-nesciunt",
   "type": "post",
   "data": {
-    "title": "unleash dot-com e-services",
-    "subtitle": "facilitate value-added technologies",
-    "author": "empower intuitive web-readiness",
+    "title": "target one-to-one e-commerce",
+    "subtitle": "deploy user-centric metrics",
+    "author": "enhance front-end content",
     "banner": {
       "dimensions": {
         "width": 900,
@@ -13,7 +13,69 @@
       },
       "alt": "Placeholder image",
       "copyright": null,
-      "url": "https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=900&h=500&fit=crop"
-    }
+      "url": "https://images.unsplash.com/photo-1448932223592-d1fc686e76ea?w=900&h=500&fit=crop"
+    },
+    "content": [
+      {
+        "heading": "productize granular architectures",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Enhance integrated eyeballs",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "envisioneer holistic vortals",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Mesh proactive initiatives",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "synthesize sexy deliverables",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Recontextualize bricks-and-clicks users",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "iterate holistic niches",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Optimize clicks-and-mortar solutions",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "exploit synergistic synergies",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Engage one-to-one architectures",
+            "spans": []
+          }
+        ]
+      },
+      {
+        "heading": "drive one-to-one interfaces",
+        "body": [
+          {
+            "type": "heading1",
+            "text": "Implement B2B methodologies",
+            "spans": []
+          }
+        ]
+      }
+    ]
   }
 }
