@@ -6,6 +6,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import { predicate } from '@prismicio/client';
 import { RichText, RichTextBlock } from 'prismic-reactjs';
 import { useRouter } from 'next/router';
+import Head from 'next/head';
 import Header from '../../components/Header';
 
 import { getPrismicClient } from '../../services/prismic';
@@ -68,6 +69,9 @@ export default function Post({ post }: PostProps): JSX.Element {
 
   return (
     <>
+      <Head>
+        <title>{post.data.title} | spacetraveling.</title>
+      </Head>
       <Header />
       <main className={styles.container}>
         <figure>
