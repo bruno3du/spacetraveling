@@ -27,7 +27,7 @@ interface Post {
 
 interface PostPagination {
   next_page: string;
-  posts: Post[];
+  results: Post[];
 }
 
 interface HomeProps {
@@ -35,7 +35,7 @@ interface HomeProps {
 }
 
 export default function Home({ postsPagination }: HomeProps): JSX.Element {
-  const [posts, setPosts] = useState(postsPagination.posts as Post[]);
+  const [posts, setPosts] = useState(postsPagination.results as Post[]);
   const [nextPage, setNextPage] = useState<string>(
     postsPagination.next_page || null
   );
@@ -84,15 +84,9 @@ export default function Home({ postsPagination }: HomeProps): JSX.Element {
           <section>
             {posts.map((post, index) => (
               <div key={`${index + 2} postX`} className={styles.posts}>
-                <Link
-                  href={{
-                    pathname: '/post/[slug]',
-                    query: { slug: post.uid },
-                  }}
-                  passHref
-                >
+                <Link href={`/post/${post.uid}`} passHref>
                   <a>
-                    <h2>{post?.data?.title}</h2>
+                    <h2>{post?.data.title}</h2>
                   </a>
                 </Link>
                 <p>{post?.data?.subtitle}</p>
@@ -145,7 +139,7 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       postsPagination: {
-        posts,
+        results: posts,
         next_page,
       },
     },
